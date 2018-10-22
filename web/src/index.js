@@ -13,8 +13,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/sass/app.sass'
 
 // Components
-import RoutesBuilder from './components/RoutesBuilder'
 import { BrowserRouter as Router } from 'react-router-dom'
+import RoutesBuilder from './components/router/RoutesBuilder'
 
 // App
 ReactDOM.render(

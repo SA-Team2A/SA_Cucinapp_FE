@@ -2,25 +2,25 @@ import React, { Component } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 // Assets
-import Store from '../js/store'
-import { Routes } from '../js/routes'
+import store from '../../js/store'
+import { Routes } from '../../js/routes'
 
 
 // Components
-import App from './App'
+import App from '../layout/App'
 
 export default class RoutesBuilder extends Component {
 
   constructor(props){
     super(props)
     this.state = {
-      authed: Store.getState().session
+      authed: store.getState().session
     }
   }
 
   componentDidMount(){
-    Store.subscribe(() => {
-      this.setState({ authed: Store.getState().session })
+    store.subscribe(() => {
+      this.setState({ authed: store.getState().session })
     })
   }
 

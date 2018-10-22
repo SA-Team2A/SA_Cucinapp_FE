@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
 // Assets
-import store from '../js/store'
-import { req } from '../js/request'
-import { login } from '../js/actions'
+import store from '../../js/store'
+import { req } from '../../js/request'
+import { login } from '../../js/actions'
 
 // Components
-import Error from './utilities/Error'
-import Loading from './utilities/Loading'
+import Error from '../utilities/Error'
+import Loading from '../utilities/Loading'
 
 export default class SignUp extends Component {
 
@@ -17,27 +17,47 @@ export default class SignUp extends Component {
       eqPass: null,
       isLoaded: null
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     document.title = 'Regístrate'
     this.setState({ isLoaded: true })
   }
 
-  handleSubmit( event ){
+  handleSubmit(event) {
     event.preventDefault()
-    // this.setState({ logginIn: true })
+    this.setState({ isLoaded: null })
+    const body = {
+      query: 'mutation signup($input: UserCreate!){ createUser(input: $input) }',
+      variables: {
+        input: {
+          name: document.getElementById('name').value,
+          username: document.getElementById('username').value,
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value,
+          password_confirmation: document.getElementById('cpass').value
+        }
+      }
+    }
+
+    req(body).then(
+      res => {
+        localStorage.setItem('token', res.data.data.createUser)
+        store.dispatch(login())
+      }
+    ).catch(
+      err => {
+        this.setState({ isLoaded: false })
+      }
+    )
   }
 
-  handleChange(event){
+  handleChange(event) {
     const password = document.getElementById("password").value
     const cpass = event.target.value
     var eqPass = cpass === password
     this.setState({ eqPass })
   }
-
 
   render() {
     const { isLoaded, eqPass } = this.state
@@ -55,7 +75,7 @@ export default class SignUp extends Component {
       return (
         <div className="acc_form mx-auto">
           <h3 className="text-center gv-font">Regístrate en Cucinapp</h3>
-          <form>
+          <form onSubmit={ (e) => this.handleSubmit(e) }>
             <div className="form-group">
               {/* <label htmlFor="name">Nombre</label> */}
               <input type="text" className="form-control" id="name"
@@ -90,7 +110,7 @@ export default class SignUp extends Component {
                 placeholder="Confirma la contraseña" pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
                 title="Debe contener al menos un numero, una letra y al menos 8
                 o mas caracteres" aria-describedby="equalPass"
-                onChange={ this.handleChange }/>
+                onChange={ (e) => this.handleChange(e) }/>
               { equalPass }
             </div>
             <div className="text-center">

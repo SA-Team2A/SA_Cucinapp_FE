@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 
 // Assets
-import store from '../js/store'
-import { req } from '../js/request'
-import { login, logout } from '../js/actions'
+import store from '../../js/store'
+import { req } from '../../js/request'
+import { login, logout } from '../../js/actions'
 
 // Components
 import Header from './Header'
 import Footer from './Footer'
-import Error from './utilities/Error'
-import Loading from './utilities/Loading'
+import Error from '../utilities/Error'
+import Loading from '../utilities/Loading'
 
 export default class App extends Component {
 
@@ -28,11 +28,9 @@ export default class App extends Component {
       }
     }
     if (!!body.variables.token) {
-      console.log("Hay token")
-
       req(body).then(
         res => {
-          let token = res.data.login
+          let token = res.data.data.verify
           if (token) {
             store.dispatch(login())
             localStorage.setItem('token', token)

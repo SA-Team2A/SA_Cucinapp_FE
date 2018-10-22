@@ -11,7 +11,7 @@ export default (/*{props}*/) => {
           &copy; 2018 Copyright - Cucinapp
         </div>
         <div className="col-12 col-md-6">
-          <a className="right" target="_blank" rel="noopener noreferrer"
+          <a className="right link-primary" target="_blank" rel="noopener noreferrer"
             href="https://github.com/SA-Team2A">Github</a>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 // Assets
-import landing1 from '../assets/landing1.jpg'
+import landing1 from '../../assets/landing1.jpg'
 
 // Components
 /* import components here */

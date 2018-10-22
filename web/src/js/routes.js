@@ -1,8 +1,9 @@
 // Components
-import SignIn from '../components/SignIn'
-import SignUp from '../components/SignUp'
-import Landing from '../components/Landing'
-// import Dashboard from '../components/Dashboard'
+import Home from '../components/home/Home'
+import SignUp from '../components/auth/SignUp'
+import SignIn from '../components/auth/SignIn'
+import Landing from '../components/landing/Landing'
+import Profile from '../components/profile/Profile'
 
 // User status
 const AUTHED = true
@@ -14,18 +15,22 @@ const UNAUTHED = false
 export const Routes = [
   { component: Landing,
     path: '/',
-    redirect: { when: AUTHED, to: '/dashboard' }
+    redirect: { when: AUTHED, to: '/home' }
   },
   { component: SignIn,
     path: '/signin',
-    redirect: { when: AUTHED, to: '/dashboard'}
+    redirect: { when: AUTHED, to: '/home'}
   },
   { component: SignUp,
     path: '/signup',
-    redirect: { when: AUTHED, to: '/dashboard'}
+    redirect: { when: AUTHED, to: '/home'}
   },
-  // { component: Dashboard,
-  //   path: '/dashboard',
-  //   redirect: { when: UNAUTHED, to: '/' }
-  // }
+  { component: Home,
+    path: '/home',
+    redirect: { when: UNAUTHED, to: '/' }
+  },
+  { component: Profile,
+    path: '/profile/:param?',
+    redirect: { when: UNAUTHED, to: '/login' }
+  }
 ]
