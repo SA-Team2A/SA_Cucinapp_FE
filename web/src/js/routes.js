@@ -4,6 +4,7 @@ import SignUp from '../components/auth/SignUp'
 import SignIn from '../components/auth/SignIn'
 import Landing from '../components/landing/Landing'
 import Profile from '../components/profile/Profile'
+import RecipeForm from '../components/RecipeForm'
 
 // User status
 const AUTHED = true
@@ -32,5 +33,9 @@ export const Routes = [
   { component: Profile,
     path: '/profile/:param?',
     redirect: { when: UNAUTHED, to: '/login' }
+  },
+  { component: RecipeForm,
+    path: '/new_recipe',
+    redirect: { when: UNAUTHED, to: '/' }
   }
 ]

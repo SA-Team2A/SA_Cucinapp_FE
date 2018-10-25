@@ -47,9 +47,9 @@ export default class MyProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="mt-md-5 mx-auto">
-              <img src={ user_img } class="rounded-circle"
+              <img src={ user_img } className="rounded-circle"
                 alt="profileImage" width="175"/>
-              <h1 className="text-center text-teal">{ user.username }</h1>
+              <h1 className="text-center">{ user.username }</h1>
             </div>
 
           </div>

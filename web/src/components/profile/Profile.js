@@ -21,7 +21,7 @@ export default class Profile extends Component {
 
   componentDidMount() {
     const { match: { params: { param } } } = this.props
-    if (param){
+    if (!param){
       this.setState({ view: this.MY_PROFILE })
     } else {
       this.setState({ view: this.OTHER_PROFILE })
