@@ -4,6 +4,7 @@ import SignUp from '../components/auth/SignUp'
 import SignIn from '../components/auth/SignIn'
 import Landing from '../components/landing/Landing'
 import Profile from '../components/profile/Profile'
+import Recipe from '../components/recipes/Recipe'
 import RecipeForm from '../components/recipes/RecipeForm'
 import RecipesList from '../components/recipes/RecipesList'
 
@@ -37,10 +38,14 @@ export const Routes = [
   },
   { component: RecipeForm,
     path: '/new_recipe',
-    redirect: { when: UNAUTHED, to: '/' }
+    redirect: { when: AUTHED, to: '/' } //UNAUTHED
   },
   { component: RecipesList,
     path: '/ruta_falsa',
-    redirect: { when: UNAUTHED, to: '/'}
+    redirect: { when: AUTHED, to: '/'} //UNAUTHED
+  },
+  { component: Recipe,
+    path: '/recipe/:param',
+    redirect: { when: AUTHED, to: '/'} //UNAUTHED
   }
 ]

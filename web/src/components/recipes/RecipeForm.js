@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 
 // Assets
-import { auth_req } from '../../js/request'
+// import { auth_req } from '../../js/request'
+import user_img from '../../assets/user.svg'
+
 
 // Components
 import Error from '../utilities/Error'
@@ -12,35 +14,29 @@ export default class RecipeForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isLoaded: null,
-      cuisines: null,
-      diets: null,
-      meals: null,
+      isLoaded: true, //Esto es null
       difficulties: null
     }
   }
 
   componentDidMount() {
-    document.title = 'New recipe'
-    const body = {
-      query: '{ getCuisines { id name } getDiets { id name } getMeals { id name } getDifficulties { id name } }',
-    }
-
-    auth_req(body).then(
-      res => {
-        this.setState({
-          cuisines: res.data.data.getCuisines,
-          diets: res.data.data.getDiets,
-          meals: res.data.data.getMeals,
-          difficulties: res.data.data.getDifficulties,
-          isLoaded: true
-        })
-      }
-    ).catch(
-      err => {
-        this.setState({ isLoaded: false })
-      }
-    )
+    document.title = 'Publica una receta'
+    // const body = {
+    //   query: '{ getDifficulties { _id description } }',
+    // }
+    //
+    // auth_req(body).then(
+    //   res => {
+    //     this.setState({
+    //       difficulties: res.data.data.getDifficulties,
+    //       isLoaded: true
+    //     })
+    //   }
+    // ).catch(
+    //   err => {
+    //     this.setState({ isLoaded: false })
+    //   }
+    // )
   }
 
   handleSubmit(event) {
@@ -54,44 +50,63 @@ export default class RecipeForm extends Component {
   }
 
   render() {
-    const { isLoaded, cuisines, diets, difficulties, meals } = this.state
+    const { isLoaded } = this.state
 
     if (isLoaded) {
       return (
-        <div className="acc_form mx-auto">
+        <div className="col-md-8 offset-md-2">
           <h3 className="text-center gv-font">Sube tus recetas y compartelas con la comunidad</h3>
           <form onSubmit={ (e) => this.handleSubmit(e) }>
             <div className="form-group">
-              {/* <label htmlFor="name">Nombre</label> */}
-              <input type="text" className="form-control" id="name"
-                placeholder="Nombre"/>
+              <input type="text" className="form-control" id="title"
+                placeholder="Escribe el título aquí"/>
+            </div>
+            <div className="form-row">
+              <div className="form-group col-md-2">
+                <i className="material-icons">alarm</i>
+                <input type="number" className="form-control" id="total-time"/>
+                <span>min</span>
+              </div>
+              <div className="form-group col-md-2">
+                <i className="material-icons">short_text</i>
+                <select className="form-control" id="difficulty">
+                  {/* { this.mapElements(difficulties) } Toca revisar*/}
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                </select>
+              </div>
+              <div className="form-group col-md-2">
+                <input type="number" className="form-control" id="portions"/>
+                <span>Porciones</span>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-2 text-center my-auto">
+                <img src={ user_img } alt="una foto" className="w-100 rounded-circle"/>
+                <span>Usuario</span>
+              </div>
+              <div className="col-md-10">
+                <textarea className="form-control" id="description" rows="3"
+                 placeholder="Cuéntanos un poco más sobre tu receta">
+                </textarea>
+              </div>
+            </div>
+            <hr/>
+            <div className="form-group">
+              <label htmlFor="ingredients">Ingredientes</label>
+              <textarea className="form-control" id="ingredients" rows="3"
+               placeholder="Escribe los ingredientes de tu receta">
+              </textarea>
             </div>
             <div className="form-group">
-              <label htmlFor="cuisine">Cocina</label>
-            <select className="form-control" id="cuisine">
-                { this.mapElements(cuisines) }
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="meal">Meal</label>
-              <select className="form-control" id="meal">
-                { this.mapElements(meals) }
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="diet">Dieta</label>
-              <select className="form-control" id="diet">
-                { this.mapElements(diets) }
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="difficulty">Dificultad</label>
-              <select className="form-control" id="difficulty">
-                { this.mapElements(difficulties) }
-              </select>
+              <label htmlFor="steps">Preparación</label>
+            <textarea className="form-control" id="steps" rows="3"
+               placeholder="Escribe los pasos de tu receta">
+              </textarea>
             </div>
             <div className="text-center">
-              <button type="submit" className="btn btn-primary">Regístrate</button>
+              <button type="submit" className="btn btn-primary">Sube tu receta</button>
             </div>
           </form>
         </div>

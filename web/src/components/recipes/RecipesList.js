@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 // Components
-import Recipe from './Recipe'
+import RecipeTile from './RecipeTile'
 import Error from '../utilities/Error'
 import Loading from '../utilities/Loading'
 
@@ -35,14 +35,16 @@ export default class RecipesList extends Component {
     }
 
     list = items.map(
-      (recipe, index) => (<Recipe key={ index } recipe={ recipe } />)
+      (recipe, index) => (<li key={ index } className="d-inline-block m-2"><RecipeTile recipe={ recipe } /></li>)
 
     )
 
     if (isLoaded) {
       return (
-        <div className="mx-auto">
-          { list  }
+        <div className="container mx-auto">
+          <ul className="p-0 text-center">
+            { list  }
+          </ul>
         </div>
       )
     } else if (isLoaded == null) {
