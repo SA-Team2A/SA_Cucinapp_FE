@@ -6,7 +6,6 @@ import Landing from '../components/landing/Landing'
 import Profile from '../components/profile/Profile'
 import Recipe from '../components/recipes/Recipe'
 import RecipeForm from '../components/recipes/RecipeForm'
-import RecipesList from '../components/recipes/RecipesList'
 
 // User status
 const AUTHED = true
@@ -38,14 +37,10 @@ export const Routes = [
   },
   { component: RecipeForm,
     path: '/new_recipe',
-    redirect: { when: AUTHED, to: '/' } //UNAUTHED
-  },
-  { component: RecipesList,
-    path: '/ruta_falsa',
-    redirect: { when: AUTHED, to: '/'} //UNAUTHED
+    redirect: { when: UNAUTHED, to: '/' } //UNAUTHED
   },
   { component: Recipe,
     path: '/recipe/:param',
-    redirect: { when: AUTHED, to: '/'} //UNAUTHED
+    redirect: { when: UNAUTHED, to: '/'} //UNAUTHED
   }
 ]

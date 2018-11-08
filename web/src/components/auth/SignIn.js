@@ -28,7 +28,7 @@ export default class SignIn extends Component {
     event.preventDefault()
     this.setState({ isLoaded: null })
     const body = {
-      query: 'query signin($input: Login!){ login(input: $input) }',
+      query: 'query signin($input: Authenticate!){ login(input: $input) }',
       variables: {
         input: {
           email: document.getElementById('email').value,

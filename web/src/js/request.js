@@ -1,5 +1,5 @@
 import axios from 'axios'
-const apiUrl = process.env.API_URL || 'http://192.168.99.100:8080'
+const apiUrl = process.env.API_URL || 'http://localhost:8080'
 
 const req = (data) => axios({
   url: '/auth',

@@ -28,10 +28,9 @@ export default class SignUp extends Component {
     event.preventDefault()
     this.setState({ isLoaded: null })
     const body = {
-      query: 'mutation signup($input: UserCreate!){ createUser(input: $input) }',
+      query: 'mutation signup($input: New_user!){ createUser(input: $input) }',
       variables: {
         input: {
-          name: document.getElementById('name').value,
           username: document.getElementById('username').value,
           email: document.getElementById('email').value,
           password: document.getElementById('password').value,
@@ -48,6 +47,7 @@ export default class SignUp extends Component {
     ).catch(
       err => {
         this.setState({ isLoaded: false })
+        console.log(err.response)
       }
     )
   }
@@ -76,13 +76,6 @@ export default class SignUp extends Component {
         <div className="acc_form mx-auto">
           <h3 className="text-center gv-font">Regístrate en Cucinapp</h3>
           <form onSubmit={ (e) => this.handleSubmit(e) }>
-            <div className="form-group">
-              {/* <label htmlFor="name">Nombre</label> */}
-              <input type="text" className="form-control" id="name"
-                pattern="[A-Z]{0,1}[a-z]+"
-                title="Debe contener solo letras"
-                placeholder="Nombre"/>
-            </div>
             <div className="form-group">
               {/* <label htmlFor="username">Usuario</label> */}
               <input type="text" className="form-control" id="username"

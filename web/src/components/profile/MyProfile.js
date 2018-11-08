@@ -6,7 +6,9 @@ import { auth_req } from '../../js/request'
 
 // Components
 import Error from '../utilities/Error'
+import RecipesList from './RecipesList'
 import Loading from '../utilities/Loading'
+import CollectionsList from './CollectionsList'
 
 export default class MyProfile extends Component {
 
@@ -14,31 +16,49 @@ export default class MyProfile extends Component {
     super(props)
     this.state = {
       isLoaded: null,
-      user: null
+      user: null,
+      collections: null,
+      recipes: null
     }
   }
 
   componentDidMount() {
-    const body = { query: '{ user: getMyProfile { name username email } }' }
+    const body = {
+      query: `{
+        user:getMyUser { username email }
+        recipes:getMyRecipes {
+          _id
+          name
+          description
+          photos
+        }
+        collections:getMyCollections {
+          id
+          name
+        }
+      }`
+    }
 
     auth_req(body).then(
       res => {
-        console.log(res)
         this.setState({
           user: res.data.data.user,
+          recipes: res.data.data.recipes,
+          collections: res.data.data.collections,
           isLoaded: true
         })
       }
     ).catch(
       err => {
         this.setState({ isLoaded: false })
+        console.log(err.response)
       }
     )
   }
 
 
   render() {
-    const { isLoaded, user } = this.state
+    const { isLoaded, user, recipes, collections } = this.state
     // document.title = user.name // TODO cuando user sea nulo?
     // (Imagen, Nombre, Editar, Seguidores, Seguidos, Redes Sociales)
 
@@ -70,16 +90,11 @@ export default class MyProfile extends Component {
                   href="#myRecipes" role="tab" aria-controls="myRecipes"
                   aria-selected="false">Mis Recetas</a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link link-primary" id="shoppingList-tab" data-toggle="tab"
-                  href="#shoppingList" role="tab" aria-controls="shoppingList"
-                  aria-selected="false">Lista del Súper</a>
-              </li>
             </ul>
             <div className="tab-content p-md-3" id="myTabContent">
               <div className="tab-pane fade show active" id="collections"
                 role="tabpanel" aria-labelledby="home-tab">
-                Aqui van mis colecciones
+                <CollectionsList collections={ collections } />
               </div>
               <div className="tab-pane fade" id="favorites" role="tabpanel"
                 aria-labelledby="profile-tab">
@@ -87,11 +102,7 @@ export default class MyProfile extends Component {
               </div>
               <div className="tab-pane fade" id="myRecipes" role="tabpanel"
                 aria-labelledby="contact-tab">
-                Aui van mis recetas
-              </div>
-              <div className="tab-pane fade" id="shoppingList" role="tabpanel"
-                aria-labelledby="contact-tab">
-                Aui van mi lista del super
+                <RecipesList recipes={ recipes } />
               </div>
             </div>
           </div>
