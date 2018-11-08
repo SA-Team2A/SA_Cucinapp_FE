@@ -1,55 +1,69 @@
 import React, { Component } from 'react'
 
-// Components
-import Error from '../utilities/Error'
-import Loading from '../utilities/Loading'
 
-//TODO: Creo que se puede hacer en el mismo de recetas
+// Assets
+import { auth_req } from '../../js/request'
+import user_img from '../../assets/user.svg'
 
 export default class BaseComponent extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      isLoaded: null
+  handleSubmit(e) {
+    e.preventDefault()
+
+    const { currentUser: { id }, recipe_id } = this.props
+    console.log(id)
+    console.log(recipe_id)
+    const body = {
+      query: `mutation makeComment($comment: CommentInput!) {
+        createComment(comment: $comment) {
+          _id
+          user_id
+          recipe_id
+          comment
+          created_date
+        }
+      }`,
+      variables: {
+        comment: {
+          user_id: parseInt(id),
+          recipe_id,
+          comment: document.getElementById('comment').value,
+          created_date: `${new Date().getTime()}`
+        }
+      }
     }
-  }
 
-
-  componentDidMount() {
-    document.title = 'title'
-    this.setState({ isLoaded: true })
-  }
-
-  handleSubmit(event) {
-    event.preventDefault()
+    auth_req(body).then(
+      res => {
+        console.log(res.data.data)
+      }
+    ).catch(
+      err => {
+        console.log(err.response)
+      }
+    )
   }
 
   render() {
-    const { isLoaded } = this.state
+    const { currentUser } = this.props
 
-    if (isLoaded) {
-      return (
-        <form className="w-100" onSubmit={ (e) => this.handleSubmit(e) }>
-          <div className="form-group row">
-            <div className="col-md-2">
-              Imagen del individuo
-            </div>
-            <div className="col-md-8">
-              <textarea className="form-control" id="comment" rows="3"
-               placeholder="¿Tienes algun comentario?">
-              </textarea>
-            </div>
-            <div className="col-md-2 text-center">
-              <button type="submit" className="btn btn-primary">Enviar</button>
-            </div>
+    return (
+      <form className="w-100" onSubmit={ (e) => this.handleSubmit(e) }>
+        <div className="form-group row">
+          <div className="col-md-2 text-center my-auto">
+            <img src={ user_img } alt="una foto" className="w-100 rounded-circle"/>
+          <span>{ currentUser.username }</span>
           </div>
-        </form>
-      )
-    } else if (isLoaded == null) {
-      return <Loading />
-    } else {
-      return <Error />
-    }
+          <div className="col-md-8">
+            <textarea className="form-control" id="comment" rows="3"
+             placeholder="¿Tienes algun comentario?">
+            </textarea>
+          </div>
+          <div className="col-md-2 text-center">
+            <button type="submit" className="btn btn-primary">Enviar</button>
+          </div>
+        </div>
+      </form>
+    )
   }
 }

@@ -6,7 +6,6 @@ import React, { Component } from 'react'
 import MyProfile from './MyProfile'
 import OtherProfile from './OtherProfile'
 import Error from '../utilities/Error'
-import Loading from '../utilities/Loading'
 
 export default class Profile extends Component {
 

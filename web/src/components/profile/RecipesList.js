@@ -9,7 +9,7 @@ import RecipeTile from './RecipeTile'
 export default class RecipesList extends Component {
 
   componentDidMount() {
-    document.title = "recipes"
+    document.title = "Mis recetas"
   }
 
   render() {
@@ -34,7 +34,7 @@ export default class RecipesList extends Component {
             </div>
           </li>
 
-          { list  }
+          { list }
         </ul>
       </div>
     )

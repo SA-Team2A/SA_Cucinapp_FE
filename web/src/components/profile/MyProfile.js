@@ -61,7 +61,9 @@ export default class MyProfile extends Component {
     const { isLoaded, user, recipes, collections } = this.state
     // document.title = user.name // TODO cuando user sea nulo?
     // (Imagen, Nombre, Editar, Seguidores, Seguidos, Redes Sociales)
-
+    console.log(user)
+    console.log(recipes)
+    console.log(collections)
     if (isLoaded) {
       return (
         <div className="container">

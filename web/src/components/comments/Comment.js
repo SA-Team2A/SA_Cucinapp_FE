@@ -7,9 +7,9 @@ import user_img from '../../assets/user.svg'
 import { Link } from 'react-router-dom'
 
 export default ({ item }) => {
-  const { comment, date, user_id } = item
+  const { comment, created_date, user_id, username } = item
   // const { username } = user
-  console.log(item);
+  console.log(item)
 
   return (
     <div className="row">
@@ -17,9 +17,9 @@ export default ({ item }) => {
         <img src={ user_img } alt="una foto" className="w-100 rounded-circle"/>
       </div>
       <div className="col-md-11">
-        <Link to={"/profile/" + user_id }>Nombre del individuo</Link>
+        <Link to={"/profile/" + user_id }>{ username }</Link>
         <br/>
-        <small>{ date }</small>
+        <small>{ created_date }</small>
         <p>{ comment }</p>
       </div>
     </div>
