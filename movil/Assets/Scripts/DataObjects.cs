@@ -8,27 +8,15 @@ public class DataObjects : MonoBehaviour {
 }
 
 [Serializable]
-public class CuisinesData
+public class CollectionsData
 {
-	public List<CuisineObject> getCuisines; 
+	public List<CollectionObject> getCollections; 
 }
 
 [Serializable]
-public struct CuisineObject
+public struct CollectionObject
 {
 	public int id;
-	public string name;
-}
-
-[Serializable]
-public class DietsData
-{
-	public List<DietObject> getDiets; 
-}
-
-[Serializable]
-public struct DietObject
-{
-	public int id;
+	public int user_id;
 	public string name;
 }

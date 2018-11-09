@@ -14,10 +14,11 @@ public class CreateMenu : MonoBehaviour {
 	private string apiURL;	
 	
 	private API_Requests request;
-	private CuisinesData cuisineData = new CuisinesData();
-	private DietsData dietData = new DietsData();
+	/*private CuisinesData cuisineData = new CuisinesData();
+	private DietsData dietData = new DietsData();*/
 	
-	public GameObject controller, cusineScroll, dietScroll;
+	public GameObject controller, cuisineScroll, dietScroll,
+										cuisineButton, dietButton;
 	
 	public Text cusineInfoText, dietInfoText;
 
@@ -30,12 +31,15 @@ public class CreateMenu : MonoBehaviour {
 		jsonRequests.Add("{\"query\": \"{getDifficulties{id name}}\"}");
 		request = controller.GetComponent<API_Requests>();
 		
-		cusineScroll.SetActive(false);
+		cuisineScroll.SetActive(false);
 		dietScroll.SetActive(false);
+		cuisineButton.SetActive(true);
+		dietButton.SetActive(true);
 	}
 	
-	public IEnumerator getExtras()
+	/*public IEnumerator getExtras()
 	{
+		yield return new WaitForSeconds(0.1f);
 		// Call to Cuisines in GraphQL
 		API_Requests cdCuisine = new API_Requests(this, request.PostRequest(apiURL, jsonRequests[0]));
 		yield return cdCuisine.coroutine;
@@ -46,10 +50,13 @@ public class CreateMenu : MonoBehaviour {
 		if(cuisineData.getCuisines.Count == 0)
 		{
 			cusineInfoText.text = "No hay tipos de cocina, crea uno aquí";
+			cuisineButton.SetActive(true);
+			dietButton.SetActive(true);
 		}
 		else
 		{
-			cusineScroll.SetActive(true);
+			cusineInfoText.text = "";
+			cuisineScroll.SetActive(true);
 		}
 		
 		// Call to Diets in GraphQL
@@ -72,10 +79,10 @@ public class CreateMenu : MonoBehaviour {
 			dietScroll.SetActive(true);
 			Debug.Log(dietOptions[1]);
 		}
-	}
+	}*/
 	
 	public void buttonPress()
 	{
-		StartCoroutine(getExtras());
+		//StartCoroutine(getExtras());
 	}
 }

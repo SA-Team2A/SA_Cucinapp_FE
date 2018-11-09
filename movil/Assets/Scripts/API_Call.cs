@@ -17,13 +17,13 @@ public class API_Call : MonoBehaviour {
 	
 	private List<string> dropOptions = new List<string>();
 	
-	public CuisinesData cuisineInfo;
+	public CollectionsData collectionInfo;
 	
 	// Use this for initialization
 	void Start () {
 		continueButton.SetActive(false);
-		cuisineInfo = new CuisinesData();
-		jsonData = "{\"query\": \"{getCuisines{id name}}\"}";
+		collectionInfo = new CollectionsData();
+		jsonData = "{\"query\": \"{getCollections{id user_id name}}\"}";
 		
 		//cuisineDropdown.ClearOptions();
 	}
@@ -37,12 +37,13 @@ public class API_Call : MonoBehaviour {
 	
 	public void SetText(string data)
 	{
-		cuisineInfo = JsonUtility.FromJson<CuisinesData>(data);
-		Debug.Log (cuisineInfo.getCuisines.Count);
+		collectionInfo = JsonUtility.FromJson<CollectionsData>(data);
+		Debug.Log (collectionInfo.getCollections.Count);
 		
-		foreach (CuisineObject cuisine in cuisineInfo.getCuisines)
+		foreach (CollectionObject collection in collectionInfo.getCollections)
 		{
-			dropOptions.Add(cuisine.name);
+			dropOptions.Add(collection.name);
+			Debug.Log(collection.name);
 		}
 		
 		//cuisineDropdown.AddOptions(dropOptions);
