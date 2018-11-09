@@ -59,12 +59,10 @@ export default class MyProfile extends Component {
 
   render() {
     const { isLoaded, user, recipes, collections } = this.state
-    // document.title = user.name // TODO cuando user sea nulo?
     // (Imagen, Nombre, Editar, Seguidores, Seguidos, Redes Sociales)
-    console.log(user)
-    console.log(recipes)
-    console.log(collections)
+
     if (isLoaded) {
+      document.title = user.username
       return (
         <div className="container">
           <div className="row">
@@ -96,7 +94,7 @@ export default class MyProfile extends Component {
             <div className="tab-content p-md-3" id="myTabContent">
               <div className="tab-pane fade show active" id="collections"
                 role="tabpanel" aria-labelledby="home-tab">
-                <CollectionsList collections={ collections } />
+                <CollectionsList own={true} collections={ collections } />
               </div>
               <div className="tab-pane fade" id="favorites" role="tabpanel"
                 aria-labelledby="profile-tab">
@@ -104,7 +102,7 @@ export default class MyProfile extends Component {
               </div>
               <div className="tab-pane fade" id="myRecipes" role="tabpanel"
                 aria-labelledby="contact-tab">
-                <RecipesList recipes={ recipes } />
+                <RecipesList own={true} recipes={ recipes } />
               </div>
             </div>
           </div>

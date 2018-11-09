@@ -34,33 +34,3 @@ export default class Profile extends Component {
       (view === this.OTHER_PROFILE) ? (<OtherProfile id={ param } />) : (<Error />)
   }
 }
-
-/*
-var body = null
-
-if (param) {
-  // peticion con id
-  body = {
-    query: 'query getUser($id: ID!) { user: getUserById(_id: $id) { name username email } }',
-    variables: { id: param }
-  }
-} else {
-  body = { query: '{ user: getMyProfile { name username email } }' }
-}
-
-auth_req(body).then(
-  res => {
-    console.log(res)
-    this.setState({
-      user: res.data.data.user,
-      isLoaded: true
-    })
-  }
-).catch(
-  err => {
-    this.setState({ isLoaded: false })
-  }
-)
-document.title = "Mi perfil"
-
-*/

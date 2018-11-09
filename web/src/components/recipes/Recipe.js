@@ -28,8 +28,6 @@ export default class Recipe extends Component {
 
   componentDidMount() {
     const { match: { params: { param } } } = this.props
-    console.log(param);
-
     const body = {
       query: `query getRecipe($id: ID!){
         recipe: getRecipeById(_id: $id) {
@@ -65,9 +63,6 @@ export default class Recipe extends Component {
         id: param
       }
     }
-
-    console.log(body)
-
     auth_req(body).then(
       res => {
         console.log(res.data.data)
@@ -85,8 +80,6 @@ export default class Recipe extends Component {
         console.log(err.response)
       }
     )
-
-    document.title = 'title' //Titulo de la receta
   }
 
   mapList(list) {
@@ -100,10 +93,12 @@ export default class Recipe extends Component {
     const { match: { params: { param } } } = this.props
 
     if (isLoaded) {
+      document.title = recipe.name
       const { name, preparation_time, difficulty, portions, description, user_id,
               ingredients, steps, photos } = recipe
 
       const joinedQuery = join(comments, 'user_id', users, 'id')
+      const username = users.filter( u => u.id === user_id )[0].username
 
       var carrouselPhotos = ( photos.length > 0 ) ? (
         <div id="carouselPhotos" className="carousel slide" data-ride="carousel">
@@ -139,7 +134,7 @@ export default class Recipe extends Component {
         <div className="col-md-8 offset-md-2">
           { carrouselPhotos }
           <div className="row">
-            <h1 className="gv-font">{ name }</h1>
+            <h1 className="">{ name }</h1>
           </div>
           <div className="row">
             <i className="material-icons">alarm</i>
@@ -151,12 +146,12 @@ export default class Recipe extends Component {
           <div className="row mt-3">
             <div className="col-md-2 text-center my-auto">
               <img src={ user_img } alt="una foto" className="w-100 rounded-circle"/>
-              <span>Usuario</span>
+              <span>{ username }</span>
             </div>
             <div className="col-md-10">
               <p>{ description }</p>
               <span>Conoce más sobre </span>
-              <Link to={"/profile/" + user_id }>Usuario</Link>
+              <Link to={"/profile/" + user_id }>{ username }</Link>
             </div>
           </div>
           <div className="row d-flex justify-content-center mt-3">
@@ -180,7 +175,7 @@ export default class Recipe extends Component {
             <h2 className="gv-font">Preparación</h2>
           </div>
           <div className="row">
-            <ol start="1">
+            <ol start={'1'}>
               { this.mapList(steps) }
             </ol>
           </div>

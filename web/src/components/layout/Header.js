@@ -52,9 +52,6 @@ export default class Header extends Component {
                     <Link className="nav-link link-color-h" to="/profile">Mi perfil</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link link-color-h" to="#">Mis recetas</Link>
-                  </li>
-                  <li className="nav-item">
                     <Link className="nav-link link-color-h" to="#"
                       onClick={ (e) => this.handleClick(e) }>Cerrar Sesión</Link>
                   </li>

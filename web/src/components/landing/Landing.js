@@ -8,6 +8,7 @@ import feature_3 from '../../assets/feature_3.png'
 
 export default class Landing extends Component {
   render() {
+    document.title = 'Cucinapp'
     return (
       <div>
         <div className="container-fluid">

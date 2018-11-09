@@ -11,8 +11,6 @@ export default class BaseComponent extends Component {
     e.preventDefault()
 
     const { currentUser: { id }, recipe_id } = this.props
-    console.log(id)
-    console.log(recipe_id)
     const body = {
       query: `mutation makeComment($comment: CommentInput!) {
         createComment(comment: $comment) {
