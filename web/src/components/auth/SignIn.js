@@ -41,8 +41,8 @@ export default class SignIn extends Component {
       res => {
         let token = res.data.data.login
         if (token) {
-          store.dispatch(login())
           localStorage.setItem('token', token)
+          store.dispatch(login())
         } else {
           this.setState({
             isLoaded: true,
